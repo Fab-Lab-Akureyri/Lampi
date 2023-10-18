@@ -10,6 +10,8 @@ Lágmarks kröfur:
 - [ ] Sérhannaða rafrás
 - [ ] Laserskorna hluti
 - [ ] Virka án nets - takkar líka
+- [ ] Prófa SPIFFS 
+
 
 Gott að hafa: 
 
