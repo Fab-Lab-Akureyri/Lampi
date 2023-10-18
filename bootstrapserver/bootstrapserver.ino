@@ -123,11 +123,14 @@ void loop() {
             client.println("<script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js\" integrity=\"sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM\" crossorigin=\"anonymous\"></script>");
 
             client.println("<style>");
+            /*
             client.println("html {font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}");
             client.println(".mybtn {padding: 16px 40px; font-size: 30px;} ");
             client.println(".par { font-size: 16px;}");
             client.println("p {text-align: center;}");
             client.println(".lm35 {text-align: center; border: none; margin: 2px; padding: 16px 40px; font-size: 30px;}");
+            */
+
             client.println("</style></head>");
 
             client.println("<body class=\"bg-light\">");

@@ -12,6 +12,7 @@ Lágmarks kröfur:
 - [ ] Virka án nets - takkar líka
 - [ ] Prófa SPIFFS 
   - https://randomnerdtutorials.com/install-esp32-filesystem-uploader-arduino-ide/
+  - https://randomnerdtutorials.com/esp32-vs-code-platformio-spiffs/
 
 Gott að hafa: 
 
