@@ -11,10 +11,12 @@ Lágmarks kröfur:
 - [ ] Laserskorna hluti
 - [ ] Virka án nets - takkar líka
 - [ ] Prófa SPIFFS 
-
+  - https://randomnerdtutorials.com/install-esp32-filesystem-uploader-arduino-ide/
 
 Gott að hafa: 
 
 - [ ] Nettengingu
 - [ ] Vefviðmót
 - [ ] Bluetooth?
+
+
