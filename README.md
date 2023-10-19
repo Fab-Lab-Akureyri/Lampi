@@ -33,6 +33,11 @@ Gott að hafa:
 |:--:| 
 | *Jón að setja saman* |
 
+| ![Vefviðmót](myndir/screenshot.png) | 
+|:--:| 
+| *Vefviðmót* |
+
+
 ## Nótur
 
 ### Villa í ASPAsyncWebServer 
