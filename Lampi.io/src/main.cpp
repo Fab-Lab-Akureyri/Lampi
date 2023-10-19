@@ -20,6 +20,10 @@ AsyncWebServer server(80);
 
 // Set LED GPIO
 const int ledPin = D6;
+
+// Set Servo pin
+#define SERVO_PIN D0
+
 // Stores LED state
 String ledState;
 
@@ -49,11 +53,28 @@ String processor(const String& var){
   }
   return String();
 }
+
+// Servo helper functions for ESP32-C3
+void generatePWM(int pulseWidthMicros) {
+  int pulsePeriodMicros = 20000; // Corresponds to 50Hz  
+  digitalWrite(SERVO_PIN, HIGH);
+  delayMicroseconds(pulseWidthMicros);
+  digitalWrite(SERVO_PIN, LOW);
+  delayMicroseconds(pulsePeriodMicros - pulseWidthMicros);
+}
+
+void setServoAngle(int angle) {
+  int pulseWidth = map(angle, 0, 180, 1000, 2000); // Map angle to 1-2ms pulse width
+  generatePWM(pulseWidth);
+}
+
  
 void setup(){
   // Serial port for debugging purposes
   Serial.begin(115200);
   pinMode(ledPin, OUTPUT);
+  pinMode(SERVO_PIN, OUTPUT);
+
 
   // Init Neopixel
   strip.begin();
@@ -61,14 +82,26 @@ void setup(){
 
   for(int i = 0; i < 12; i++){
     strip.setPixelColor(i, 0, 0, 0, 32);  
-    delay(100);
+    delay(50);
     strip.show();
   }
 
   for(int i = 0; i < 12; i++){
     strip.setPixelColor(i, 0, 0, 0, 0);  
-    delay(100);
+    delay(50);
     strip.show();
+  }
+
+  // Sweep from 0 to 180 degrees
+  for (int angle = 0; angle <= 180; angle++) {
+    setServoAngle(angle);
+    //delay(25); // Delay for smooth movement
+  }
+  
+  // Sweep back from 180 to 0 degrees
+  for (int angle = 180; angle >= 0; angle--) {
+    setServoAngle(angle);
+    //delay(25); // Delay for smooth movement
   }
 
   // Initialize SPIFFS
