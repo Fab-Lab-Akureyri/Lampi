@@ -26,10 +26,10 @@ String ledState;
 // Set Neopixel
 #define NEO_PIN D1
 #define LED_COUNT 12
-String neoState;
+String neoState = "";
 
 // Create Neopixel object
-Adafruit_NeoPixel strip(LED_COUNT, NEO_PIN, NEO_RGBW + NEO_KHZ800);
+Adafruit_NeoPixel strip(LED_COUNT, NEO_PIN, NEO_GRBW + NEO_KHZ800);
 
 // Replaces placeholder with LED state value
 String processor(const String& var){
@@ -43,6 +43,9 @@ String processor(const String& var){
     }
     Serial.print(ledState);
     return ledState;
+  } else if (var == "NEOSTATE"){
+    Serial.println(neoState);
+    return neoState;
   }
   return String();
 }
@@ -103,6 +106,56 @@ void setup(){
   // Route to set GPIO to LOW
   server.on("/ledoff", HTTP_GET, [](AsyncWebServerRequest *request){
     digitalWrite(ledPin, LOW);    
+    request->send(SPIFFS, "/index.html", String(), false, processor);
+  });
+
+  server.on("/neored", HTTP_GET, [](AsyncWebServerRequest *request){  
+    for(int i = 0; i < LED_COUNT; i++){
+      strip.setPixelColor(i, 64, 0, 0, 0);  
+      //delay(100);
+      strip.show();
+    }   
+    neoState = "Red";
+    request->send(SPIFFS, "/index.html", String(), false, processor);
+  });
+
+  server.on("/neogreen", HTTP_GET, [](AsyncWebServerRequest *request){  
+    for(int i = 0; i < LED_COUNT; i++){
+      strip.setPixelColor(i, 0, 64, 0, 0);  
+      //delay(100);
+      strip.show();
+    }   
+    neoState = "Green";
+    request->send(SPIFFS, "/index.html", String(), false, processor);
+  });
+
+  server.on("/neoblue", HTTP_GET, [](AsyncWebServerRequest *request){  
+    for(int i = 0; i < LED_COUNT; i++){
+      strip.setPixelColor(i, 0, 0, 64, 0);  
+      //delay(100);
+      strip.show();
+    }   
+    neoState = "Blue";
+    request->send(SPIFFS, "/index.html", String(), false, processor);
+  });
+
+  server.on("/neowhite", HTTP_GET, [](AsyncWebServerRequest *request){  
+    for(int i = 0; i < LED_COUNT; i++){
+      strip.setPixelColor(i, 0, 0, 0, 64);  
+      //delay(100);
+      strip.show();
+    }
+    neoState = "White";
+    request->send(SPIFFS, "/index.html", String(), false, processor);
+  });
+
+  server.on("/neooff", HTTP_GET, [](AsyncWebServerRequest *request){  
+    for(int i = 0; i < LED_COUNT; i++){
+      strip.setPixelColor(i, 0, 0, 0, 0);  
+      //delay(100);
+      strip.show();
+    }
+    neoState = "Off";
     request->send(SPIFFS, "/index.html", String(), false, processor);
   });
 

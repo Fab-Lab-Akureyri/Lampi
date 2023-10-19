@@ -3,6 +3,8 @@ html {
     display: inline-block;
     margin: 0px auto;
     text-align: center;
+    background-color: rgb(223, 204, 197);
+    
   }
   h1{
     color: #0F3376;
@@ -23,6 +25,21 @@ html {
     margin: 2px;
     cursor: pointer;
   }
-  .button2 {
+  .buttonRed {
     background-color: #f44336;
   }
+  .buttonGreen {
+    background-color: green;
+  }
+  .buttonBlue {
+    background-color: blue;
+  }
+  .buttonWhite {
+    background-color: white;
+    color: black;
+  }
+  .buttonGrey {
+    background-color: grey;
+    color: black;
+  }
+

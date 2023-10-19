@@ -10,8 +10,29 @@
 <body>
   <h1>FLAXIO ESP32 Web Server</h1>
   <h2>Lampi í vinnslu</h2>
-  <p>FLAXIAO LED state: <strong> %LEDSTATE%</strong></p>
-  <p><a href="/ledon"><button class="button">ON</button></a></p>
-  <p><a href="/ledoff"><button class="button button2">OFF</button></a></p>
+  <div>
+    <p>FLAXIAO LED state: <strong> %LEDSTATE%</strong></p>
+    <p><a href="/ledon"><button class="button">ON</button></a></p>
+    <p><a href="/ledoff"><button class="button buttonRed">OFF</button></a></p>
+  </div>
+  <div>
+    <p>Neopixel state: <strong> %NEOSTATE%</strong></p>
+    <div>
+      <p><a href="/neored"><button class="button buttonRed">Red</button></a></p>
+    </div>
+    <div>
+      <p><a href="/neogreen"><button class="button buttonGreen">Green</button></a></p>
+    </div>
+    <div>
+      <p><a href="/neoblue"><button class="button buttonBlue">Blue</button></a></p>
+    </div>
+    <div>
+      <p><a href="/neowhite"><button class="button buttonWhite">White</button></a></p>
+    </div>
+    <div>
+      <p><a href="/neooff"><button class="button buttonGrey">OFF</button></a></p>
+    </div>
+  </div>
+
 </body>
 </html>
