@@ -15,18 +15,26 @@
 const char* ssid = "Hotspot";
 const char* password = "Password";
 
+// Create AsyncWebServer object on port 80
+AsyncWebServer server(80);
+
 // Set LED GPIO
 const int ledPin = D6;
 // Stores LED state
 String ledState;
 
-// Create AsyncWebServer object on port 80
-AsyncWebServer server(80);
+// Set Neopixel
+#define NEO_PIN D1
+#define LED_COUNT 12
+String neoState;
+
+// Create Neopixel object
+Adafruit_NeoPixel strip(LED_COUNT, NEO_PIN, NEO_RGBW + NEO_KHZ800);
 
 // Replaces placeholder with LED state value
 String processor(const String& var){
   Serial.println(var);
-  if(var == "STATE"){
+  if(var == "LEDSTATE"){
     if(digitalRead(ledPin)){
       ledState = "ON";
     }
@@ -43,6 +51,22 @@ void setup(){
   // Serial port for debugging purposes
   Serial.begin(115200);
   pinMode(ledPin, OUTPUT);
+
+  // Init Neopixel
+  strip.begin();
+  strip.show(); // Initialize all pixels to 'off'
+
+  for(int i = 0; i < 12; i++){
+    strip.setPixelColor(i, 0, 0, 0, 32);  
+    delay(100);
+    strip.show();
+  }
+
+  for(int i = 0; i < 12; i++){
+    strip.setPixelColor(i, 0, 0, 0, 0);  
+    delay(100);
+    strip.show();
+  }
 
   // Initialize SPIFFS
   if(!SPIFFS.begin(true)){
