@@ -32,6 +32,11 @@ String ledState;
 #define LED_COUNT 12
 String neoState = "";
 
+// Servo settings
+int currentServoAngle = 0;  // Servo's current angle
+int maxServoAngle = 80;     // Max range of motion
+
+
 // Create Neopixel object
 Adafruit_NeoPixel strip(LED_COUNT, NEO_PIN, NEO_GRBW + NEO_KHZ800);
 
@@ -47,10 +52,17 @@ String processor(const String& var){
     }
     Serial.print(ledState);
     return ledState;
-  } else if (var == "NEOSTATE"){
+  } 
+  
+  if (var == "NEOSTATE"){
     Serial.println(neoState);
     return neoState;
   }
+
+  if(var == "SERVOSTATE") {
+    return String(currentServoAngle) + "°";
+  }
+
   return String();
 }
 
@@ -92,6 +104,7 @@ void setup(){
     strip.show();
   }
 
+  /*
   // Sweep from 0 to 180 degrees
   for (int angle = 0; angle <= 180; angle++) {
     setServoAngle(angle);
@@ -103,7 +116,10 @@ void setup(){
     setServoAngle(angle);
     //delay(25); // Delay for smooth movement
   }
+  */
 
+  // Set servo to 0°c
+  setServoAngle(currentServoAngle);
   // Initialize SPIFFS
   if(!SPIFFS.begin(true)){
     Serial.println("An Error has occurred while mounting SPIFFS");
@@ -191,6 +207,27 @@ void setup(){
     neoState = "Off";
     request->send(SPIFFS, "/index.html", String(), false, processor);
   });
+
+    // Route to increase servo angle by 20 degrees
+  server.on("/servoUp", HTTP_GET, [](AsyncWebServerRequest *request) {
+    currentServoAngle += 20;
+    if(currentServoAngle > maxServoAngle) {
+      currentServoAngle = maxServoAngle;
+    }
+    setServoAngle(currentServoAngle);
+    request->send(SPIFFS, "/index.html", String(), false, processor);
+  });
+
+  // Route to decrease servo angle by 20 degrees
+  server.on("/servoDown", HTTP_GET, [](AsyncWebServerRequest *request) {
+    currentServoAngle -= 20;
+    if(currentServoAngle < 0) {
+      currentServoAngle = 0;
+    }
+    setServoAngle(currentServoAngle);
+    request->send(SPIFFS, "/index.html", String(), false, processor);
+  });
+
 
   // Start server
   server.begin();

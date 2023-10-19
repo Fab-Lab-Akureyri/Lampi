@@ -1,3 +1,4 @@
+<!-- 
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +32,56 @@
     </div>
     <div>
       <p><a href="/neooff"><button class="button buttonGrey">OFF</button></a></p>
+    </div>
+  </div>
+  <div>
+    <p>Servo angle: <strong> %SERVOSTATE%</strong></p>
+    <p><a href="/servoUp"><button class="button">+20°</button></a></p>
+    <p><a href="/servoDown"><button class="button">-20°</button></a></p>
+  </div>
+
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ESP32 Web Server</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h1>Snjalllampi FLA</h1>
+  <div class="control-group">
+    <h3>FLAXIAO LED Control</h3>
+    <p>LED state: <strong>%LEDSTATE%</strong></p>
+    <div class="buttons-row">
+      <a href="/ledon"><button class="button">ON</button></a>
+      <a href="/ledoff"><button class="button buttonRed">OFF</button></a>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <h3>Neopixel Control</h3>
+    <p>Neopixel state: <strong>%NEOSTATE%</strong></p>
+    <div class="buttons-row">
+      <a href="/neored"><button class="button buttonRed">Red</button></a>
+      <a href="/neogreen"><button class="button buttonGreen">Green</button></a>
+      <a href="/neoblue"><button class="button buttonBlue">Blue</button></a>
+      <a href="/neowhite"><button class="button buttonWhite">White</button></a>
+      <a href="/neooff"><button class="button buttonGrey">OFF</button></a>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <h3>Servo Control</h3>
+    <p>Servo angle: <strong>%SERVOSTATE%</strong></p>
+    <div class="buttons-row">
+      <a href="/servoUp"><button class="button">+20°</button></a>
+      <a href="/servoDown"><button class="button">-20°</button></a>
     </div>
   </div>
 
