@@ -7,13 +7,16 @@
 #include "WiFi.h"
 #include "ESPAsyncWebServer.h"
 #include "SPIFFS.h"
+#include "AsyncTCP.h"
+#include <Adafruit_NeoPixel.h>
+
 
 // Replace with your network credentials
 const char* ssid = "Hotspot";
 const char* password = "Password";
 
 // Set LED GPIO
-const int ledPin = 2;
+const int ledPin = D6;
 // Stores LED state
 String ledState;
 
