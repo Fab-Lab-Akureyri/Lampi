@@ -2,8 +2,26 @@
 
 **Verk í vinnslu**
 
-_Útbúa verkefnalýsingu og efni fyrir rafmagns/forritunarnámskeið_
+Kaótíkin ræður ríkjum
 
+## Uppsetning
+
+- Setja upp Visual Studio Code
+- Setja up Platform.io
+- Opna Lampi.io með platform.io
+- `Build`
+- Laga línu í `AsyncWebSocket.cpp`
+- Framkvæma þessi skref:
+
+| ![Skref](myndir/skref.jpg) | 
+|:--:| 
+| *Skref* |
+
+## TODO: 
+
+- _Útbúa verkefnalýsingu og efni fyrir rafmagns/forritunarnámskeið_
+
+## Kröfur, í vinnslu
 
 Lágmarks kröfur:
 
