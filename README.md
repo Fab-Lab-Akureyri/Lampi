@@ -8,9 +8,9 @@ Kaótíkin ræður ríkjum
 
 - Setja upp Visual Studio Code
 - Setja up Platform.io
-- Opna Lampi.io með platform.io
+- Opna Lampi.io með [platform.io](https://platform.io/)
 - `Build`
-- Laga línu í `AsyncWebSocket.cpp`
+- Laga línu í `AsyncWebSocket.cpp` [sjá neðar](##nótur)
 - Framkvæma þessi skref:
 
 | ![Skref](myndir/skref.jpg) | 
