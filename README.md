@@ -10,7 +10,7 @@ Kaótíkin ræður ríkjum
 - Setja up Platform.io
 - Opna Lampi.io með [platform.io](https://platform.io/)
 - `Build`
-- Laga línu í `AsyncWebSocket.cpp` [sjá neðar](###Villa-í-ASPAsyncWebServer)
+- Laga línu í `AsyncWebSocket.cpp` [sjá neðar](https://github.com/hanndoddi/Lampi/tree/main#villa-%C3%AD-aspasyncwebserver)
 - Framkvæma þessi skref:
 
 | ![Skref](myndir/skref.jpg) | 
