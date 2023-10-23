@@ -146,6 +146,22 @@ void setup(){
     request->send(SPIFFS, "/style.css", "text/css");
   });
 
+  // Route to load bootstrap.bundle.js file
+  server.on("/bootstrap.bundle.min.js", HTTP_GET, [](AsyncWebServerRequest *request){
+      request->send(SPIFFS, "/bootstrap.bundle.min.js", "application/javascript");
+  });
+
+  // Route to load bootstrap.bundle.js.map file
+  server.on("/bootstrap.bundle.min.js.map", HTTP_GET, [](AsyncWebServerRequest *request){
+      request->send(SPIFFS, "/bootstrap.bundle.min.js.map", "application/json");
+  });
+
+  // Route to load bootstrap.min.css file
+  server.on("/bootstrap.min.css", HTTP_GET, [](AsyncWebServerRequest *request){
+      request->send(SPIFFS, "/bootstrap.min.css", "text/css");
+  });
+
+
   // Route to set GPIO to HIGH
   server.on("/ledon", HTTP_GET, [](AsyncWebServerRequest *request){
     digitalWrite(ledPin, HIGH);    
