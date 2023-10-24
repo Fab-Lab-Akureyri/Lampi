@@ -7,11 +7,15 @@ Kaótíkin ræður ríkjum
 ## Uppsetning
 
 - Setja upp Visual Studio Code
-- Setja up Platform.io
-- Opna Lampi.io með platform.io
-- `Build`
-- Laga línu í `AsyncWebSocket.cpp`
+- Setja up PlatformIO
+   - Hægt að ná í extension í [VScode](https://docs.platformio.org/en/latest/integration/ide/vscode.html)
+- Opna Lampi.io með [platformIO](https://platformio.org/)   
+- ýtta á `Build` sem býr til ýmsar skrár
+- Laga línu í `AsyncWebSocket.cpp` [sjá neðar](https://github.com/hanndoddi/Lampi/tree/main#villa-%C3%AD-aspasyncwebserver)
 - Framkvæma þessi skref:
+    1. Build filesystem Image
+    2. Upload filesystem Image
+    3. Upload and monitor
 
 | ![Skref](myndir/skref.jpg) | 
 |:--:| 
@@ -40,6 +44,7 @@ Gott að hafa:
 - Nettengingu
 - Vefviðmót
 - Bluetooth?
+- Og góða skapið 😁
 
 ## Myndir
 
