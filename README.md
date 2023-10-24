@@ -44,6 +44,7 @@ Gott að hafa:
 - Nettengingu
 - Vefviðmót
 - Bluetooth?
+- Og góða skapið 😁
 
 ## Myndir
 
