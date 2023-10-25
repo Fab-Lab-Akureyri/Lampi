@@ -1,45 +1,68 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>ESP32 Web Server</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="style.css">
+    <title>ESP32 Web Server</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="bootstrap.min.css">
 </head>
 
-<body>
-  <h1>Snjalllampi FLA</h1>
-  <div class="control-group">
-    <h3>FLAXIAO LED Control</h3>
-    <p>LED state: <strong>%LEDSTATE%</strong></p>
-    <div class="buttons-row">
-      <a href="/ledon"><button class="button">ON</button></a>
-      <a href="/ledoff"><button class="button buttonRed">OFF</button></a>
-    </div>
-  </div>
+<body class="bg-light p-3">
 
-  <div class="control-group">
-    <h3>Neopixel Control</h3>
-    <p>Neopixel state: <strong>%NEOSTATE%</strong></p>
-    <div class="buttons-row">
-      <a href="/neored"><button class="button buttonRed">Red</button></a>
-      <a href="/neogreen"><button class="button buttonGreen">Green</button></a>
-      <a href="/neoblue"><button class="button buttonBlue">Blue</button></a>
-      <a href="/neowhite"><button class="button buttonWhite">White</button></a>
-      <a href="/neooff"><button class="button buttonGrey">OFF</button></a>
-    </div>
-  </div>
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1>Snjalllampi FLA</h1>
+        </div>
 
-  <div class="control-group">
-    <h3>Servo Control</h3>
-    <p>Servo angle: <strong>%SERVOSTATE%</strong></p>
-    <div class="buttons-row">
-      <a href="/servoDown"><button class="button">-20°</button></a>
-      <a href="/servoUp"><button class="button">+20°</button></a>
+        <!-- FLAXIAO LED Control -->
+        <div class="card mb-4">
+            <div class="card-header">
+                FLAXIAO LED Control
+            </div>
+            <div class="card-body">
+                <p class="card-text">LED state: <strong>%LEDSTATE%</strong></p>
+                <div class="d-flex justify-content-center">
+                    <a href="/ledon" class="btn btn-primary mr-2">ON</a>
+                    <a href="/ledoff" class="btn btn-danger">OFF</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Neopixel Control -->
+        <div class="card mb-4">
+            <div class="card-header">
+                Neopixel Control
+            </div>
+            <div class="card-body">
+                <p class="card-text">Neopixel state: <strong>%NEOSTATE%</strong></p>
+                <div class="d-flex justify-content-center">
+                    <a href="/neored" class="btn btn-danger mr-2">Red</a>
+                    <a href="/neogreen" class="btn btn-success mr-2">Green</a>
+                    <a href="/neoblue" class="btn btn-primary mr-2">Blue</a>
+                    <a href="/neowhite" class="btn btn-light mr-2">White</a>
+                    <a href="/neooff" class="btn btn-secondary">OFF</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Servo Control -->
+        <div class="card mb-4">
+            <div class="card-header">
+                Servo Control
+            </div>
+            <div class="card-body">
+                <p class="card-text">Servo angle: <strong>%SERVOSTATE%</strong></p>
+                <div class="d-flex justify-content-center">
+                    <a href="/servoDown" class="btn btn-secondary mr-2">-20°</a>
+                    <a href="/servoUp" class="btn btn-secondary">+20°</a>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <script src="bootstrap.bundle.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
