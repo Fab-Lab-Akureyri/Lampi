@@ -32,6 +32,16 @@ String ledState;
 #define LED_COUNT 12
 String neoState = "";
 
+unsigned long previousMillis = 0; 
+const long interval = 50;  // Change rate for the transitions
+int targetR, targetG, targetB;
+int currentR = 0, currentG = 0, currentB = 0;
+float stepR, stepG, stepB;
+int steps = 0;
+bool relaxMode = false;
+
+
+
 // Servo settings
 int currentServoAngle = 0;  // Servo's current angle
 int maxServoAngle = 80;     // Max range of motion
@@ -256,11 +266,27 @@ void setup(){
     for(int i = 0; i < LED_COUNT; i++){
       strip.setPixelColor(i, 0, 0, 0, 0);  
       //delay(100);
+      relaxMode = false; // Disable relax mode
       strip.show();
     }
     neoState = "Off";
     request->send(SPIFFS, "/index.html", String(), false, processor);
   });
+
+  server.on("/neorelax", HTTP_GET, [](AsyncWebServerRequest *request){
+      relaxMode = !relaxMode;  // Toggle the relax mode on and off
+      if(relaxMode) {
+          neoState = "Relax Mode";
+      } else {
+          for(int i = 0; i < LED_COUNT; i++){
+              strip.setPixelColor(i, 0, 0, 0, 0);
+              strip.show();
+          }
+          neoState = "Off";
+      }
+      request->send(SPIFFS, "/index.html", String(), false, processor);
+  });
+
 
     // Route to increase servo angle by 20 degrees
   server.on("/servoUp", HTTP_GET, [](AsyncWebServerRequest *request) {
@@ -288,5 +314,32 @@ void setup(){
 }
  
 void loop(){
-  
+  if(relaxMode) {
+    unsigned long currentMillis = millis();
+    if (currentMillis - previousMillis >= interval) {
+        previousMillis = currentMillis;
+        
+        if(steps <= 0) {
+            targetR = random(0, 256);
+            targetG = random(0, 256);
+            targetB = random(0, 256);
+            
+            steps = 100;  // Number of steps for transition
+            stepR = (targetR - currentR) / (float)steps;
+            stepG = (targetG - currentG) / (float)steps;
+            stepB = (targetB - currentB) / (float)steps;
+        } else {
+            currentR += stepR;
+            currentG += stepG;
+            currentB += stepB;
+            
+            for(int i = 0; i < LED_COUNT; i++) {
+                strip.setPixelColor(i, currentR, currentG, currentB, 0);
+                strip.show();
+            }
+
+            steps--;
+        }
+    }
+  }
 }
