@@ -54,9 +54,17 @@ String processor(const String& var){
     return ledState;
   } 
   
+  /*
   if (var == "NEOSTATE"){
     Serial.println(neoState);
     return neoState;
+  }
+  */
+ 
+  if (var == "NEOSTATE") {
+    return neoState;
+  } else if (var == "NEOCOLOR") {
+    return neoState;  // Assuming neoState holds the current hex color value
   }
 
   if(var == "SERVOSTATE") {
@@ -80,6 +88,16 @@ void setServoAngle(int angle) {
   generatePWM(pulseWidth);
 }
 
+// Helper function for Neopixel
+void hexStringToRGB(String hex, uint8_t &r, uint8_t &g, uint8_t &b) {
+    // Remove leading #
+    hex.remove(0, 1);
+
+    // Convert hex string to integer values
+    r = strtol(hex.substring(0, 2).c_str(), NULL, 16);
+    g = strtol(hex.substring(2, 4).c_str(), NULL, 16);
+    b = strtol(hex.substring(4, 6).c_str(), NULL, 16);
+}
  
 void setup(){
   // Serial port for debugging purposes
@@ -174,6 +192,7 @@ void setup(){
     request->send(SPIFFS, "/index.html", String(), false, processor);
   });
 
+  /*
   server.on("/neored", HTTP_GET, [](AsyncWebServerRequest *request){  
     for(int i = 0; i < LED_COUNT; i++){
       strip.setPixelColor(i, 64, 0, 0, 0);  
@@ -213,6 +232,25 @@ void setup(){
     neoState = "White";
     request->send(SPIFFS, "/index.html", String(), false, processor);
   });
+
+  */
+
+  server.on("/setneocolor", HTTP_GET, [](AsyncWebServerRequest *request) {
+      if (request->hasParam("color")) {
+          String hexColor = request->getParam("color")->value();
+          uint8_t red, green, blue;
+          hexStringToRGB(hexColor, red, green, blue);
+
+          for(int i = 0; i < LED_COUNT; i++) {
+              strip.setPixelColor(i, red, green, blue, 0);
+              strip.show();
+          }
+
+          neoState = hexColor;
+      }
+      request->send(SPIFFS, "/index.html", String(), false, processor);
+  });
+
 
   server.on("/neooff", HTTP_GET, [](AsyncWebServerRequest *request){  
     for(int i = 0; i < LED_COUNT; i++){

@@ -37,16 +37,13 @@
             </div>
             <div class="card-body">
                 <p class="card-text">Neopixel state: <strong>%NEOSTATE%</strong></p>
-                <div class="d-flex justify-content-center">
-                    <a href="/neored" class="btn btn-danger mr-2">Red</a>
-                    <a href="/neogreen" class="btn btn-success mr-2">Green</a>
-                    <a href="/neoblue" class="btn btn-primary mr-2">Blue</a>
-                    <a href="/neowhite" class="btn btn-light mr-2">White</a>
-                    <a href="/neooff" class="btn btn-secondary">OFF</a>
-                </div>
+                <form action="/setneocolor" method="get">
+                    <input type="color" name="color" value="%NEOCOLOR%" class="mr-2" onchange="this.form.submit()">
+                </form>
+                <a href="/neooff" class="btn btn-secondary">OFF</a>
             </div>
         </div>
-
+        
         <!-- Servo Control -->
         <div class="card mb-4">
             <div class="card-header">
@@ -62,7 +59,7 @@
         </div>
     </div>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
