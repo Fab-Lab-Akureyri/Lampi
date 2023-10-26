@@ -9,11 +9,12 @@
 #include "SPIFFS.h"
 #include "AsyncTCP.h"
 #include <Adafruit_NeoPixel.h>
-
+#include <mDNS.h>
 
 // Replace with your network credentials
 const char* ssid = "Hotspot";
 const char* password = "Password";
+#define HOSTNAME "lampi"
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
@@ -39,8 +40,6 @@ int currentR = 0, currentG = 0, currentB = 0;
 float stepR, stepG, stepB;
 int steps = 0;
 bool relaxMode = false;
-
-
 
 // Servo settings
 int currentServoAngle = 0;  // Servo's current angle
@@ -163,6 +162,12 @@ void setup(){
 
   // Print ESP32 Local IP Address
   Serial.println(WiFi.localIP());
+
+  // this advertises the device locally at "coolname.local"
+  mdns_init(); 
+  mdns_hostname_set(HOSTNAME); 
+  mdns_instance_name_set(HOSTNAME); 
+  Serial.printf("MDNS responder started at http://%s.local\n", HOSTNAME);
 
   // Route for root / web page
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
