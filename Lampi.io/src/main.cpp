@@ -28,6 +28,7 @@ String ledState;
 // Set Neopixel
 #define NEO_PIN D1
 #define LED_COUNT 12
+int neoBrightness = 64;  // Default value, can be scaled from 0-255
 String neoState = "";
 
 unsigned long previousMillis = 0; 
@@ -59,6 +60,10 @@ String processor(const String& var){
     return neoState;
   } else if (var == "NEOCOLOR") {
     return neoState;  // Assuming neoState holds the current hex color value
+  }
+  
+  if (var == "NEOBRIGHTNESS") {
+    return String((neoBrightness * 100) / 255);  // Return value scaled from 0-100
   }
 
   return String();
@@ -161,8 +166,10 @@ void setup(){
           uint8_t red, green, blue;
           hexStringToRGB(hexColor, red, green, blue);
 
+          float brightnessScale = neoBrightness / 255.0;
+
           for(int i = 0; i < LED_COUNT; i++) {
-              strip.setPixelColor(i, red, green, blue, 0);
+              strip.setPixelColor(i, red * brightnessScale, green * brightnessScale, blue * brightnessScale, 0);
               strip.show();
           }
 
@@ -196,6 +203,38 @@ void setup(){
       request->send(SPIFFS, "/index.html", String(), false, processor);
   });
 
+  server.on("/setbrightness", HTTP_GET, [](AsyncWebServerRequest *request) {
+    if (request->hasParam("value")) {
+        int brightness = request->getParam("value")->value().toInt();
+        neoBrightness = map(brightness, 0, 100, 0, 255); // Maps the value from 0-100 to 0-255
+
+        float brightnessScale = neoBrightness / 255.0;
+        
+        if (neoState == "Off") {
+            // If the state is "Off", you may decide to just leave the LEDs off 
+            // or you could turn them on to their last color but dimmed.
+        } else if (neoState == "Relax Mode") {
+            // If it's in Relax Mode, you'd likely want to continue the "relax" logic in your loop, 
+            // but you could momentarily adjust brightness here if needed.
+            // This is a bit trickier since Relax Mode uses a changing color.
+            // For now, I'll leave this logic unchanged, and you can decide what's best.
+        } else { // Otherwise, it's displaying a solid color.
+            uint8_t red, green, blue;
+            hexStringToRGB(neoState, red, green, blue);
+            
+            for(int i = 0; i < LED_COUNT; i++) {
+                strip.setPixelColor(i,
+                                    red * brightnessScale, 
+                                    green * brightnessScale, 
+                                    blue * brightnessScale, 0);
+            }
+            strip.show();
+        }
+    }
+    
+    request->send(SPIFFS, "/index.html", String(), false, processor);
+  });
+
   // Start server
   server.begin();
 }
@@ -220,8 +259,10 @@ void loop(){
             currentG += stepG;
             currentB += stepB;
             
+            float brightnessScale = neoBrightness / 255.0;
+
             for(int i = 0; i < LED_COUNT; i++) {
-                strip.setPixelColor(i, currentR, currentG, currentB, 0);
+                strip.setPixelColor(i, currentR * brightnessScale, currentG * brightnessScale, currentB * brightnessScale, 0);
                 strip.show();
             }
 

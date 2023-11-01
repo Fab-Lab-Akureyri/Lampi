@@ -35,6 +35,11 @@
             <div class="card-header">
                 Neopixel Control
             </div>
+            <div>
+                <p>Brightness</p>
+                <input type="range" min="0" max="100" value="%NEOBRIGHTNESS%" class="slider" id="brightnessSlider">
+            </div>
+            
             <div class="card-body">
                 <p class="card-text">Neopixel state: <strong>%NEOSTATE%</strong></p>
                 <form action="/setneocolor" method="get">
@@ -43,13 +48,18 @@
                 <a href="/neooff" class="btn btn-secondary">OFF</a>
                 <a href="/neorelax" class="btn btn-info %NEOSTATE% ml-2">Relax</a>
             </div>
-            
-
         </div>
         
     </div>
 
     <script src="bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById("brightnessSlider").onchange = function() {
+            var brightnessValue = this.value;
+            // make a GET request to set the brightness
+            fetch('/setbrightness?value=' + brightnessValue);
+        }
+        </script>
 </body>
 
 </html>
