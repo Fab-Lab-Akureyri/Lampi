@@ -22,9 +22,6 @@ AsyncWebServer server(80);
 // Set LED GPIO
 const int ledPin = D6;
 
-// Set Servo pin
-#define SERVO_PIN D0
-
 // Stores LED state
 String ledState;
 
@@ -40,11 +37,6 @@ int currentR = 0, currentG = 0, currentB = 0;
 float stepR, stepG, stepB;
 int steps = 0;
 bool relaxMode = false;
-
-// Servo settings
-int currentServoAngle = 0;  // Servo's current angle
-int maxServoAngle = 80;     // Max range of motion
-
 
 // Create Neopixel object
 Adafruit_NeoPixel strip(LED_COUNT, NEO_PIN, NEO_GRBW + NEO_KHZ800);
@@ -62,39 +54,14 @@ String processor(const String& var){
     Serial.print(ledState);
     return ledState;
   } 
-  
-  /*
-  if (var == "NEOSTATE"){
-    Serial.println(neoState);
-    return neoState;
-  }
-  */
- 
+   
   if (var == "NEOSTATE") {
     return neoState;
   } else if (var == "NEOCOLOR") {
     return neoState;  // Assuming neoState holds the current hex color value
   }
 
-  if(var == "SERVOSTATE") {
-    return String(currentServoAngle) + "°";
-  }
-
   return String();
-}
-
-// Servo helper functions for ESP32-C3
-void generatePWM(int pulseWidthMicros) {
-  int pulsePeriodMicros = 20000; // Corresponds to 50Hz  
-  digitalWrite(SERVO_PIN, HIGH);
-  delayMicroseconds(pulseWidthMicros);
-  digitalWrite(SERVO_PIN, LOW);
-  delayMicroseconds(pulsePeriodMicros - pulseWidthMicros);
-}
-
-void setServoAngle(int angle) {
-  int pulseWidth = map(angle, 0, 180, 1000, 2000); // Map angle to 1-2ms pulse width
-  generatePWM(pulseWidth);
 }
 
 // Helper function for Neopixel
@@ -112,8 +79,6 @@ void setup(){
   // Serial port for debugging purposes
   Serial.begin(115200);
   pinMode(ledPin, OUTPUT);
-  pinMode(SERVO_PIN, OUTPUT);
-
 
   // Init Neopixel
   strip.begin();
@@ -131,22 +96,6 @@ void setup(){
     strip.show();
   }
 
-  /*
-  // Sweep from 0 to 180 degrees
-  for (int angle = 0; angle <= 180; angle++) {
-    setServoAngle(angle);
-    //delay(25); // Delay for smooth movement
-  }
-  
-  // Sweep back from 180 to 0 degrees
-  for (int angle = 180; angle >= 0; angle--) {
-    setServoAngle(angle);
-    //delay(25); // Delay for smooth movement
-  }
-  */
-
-  // Set servo to 0°c
-  setServoAngle(currentServoAngle);
   // Initialize SPIFFS
   if(!SPIFFS.begin(true)){
     Serial.println("An Error has occurred while mounting SPIFFS");
@@ -194,7 +143,6 @@ void setup(){
       request->send(SPIFFS, "/bootstrap.min.css", "text/css");
   });
 
-
   // Route to set GPIO to HIGH
   server.on("/ledon", HTTP_GET, [](AsyncWebServerRequest *request){
     digitalWrite(ledPin, HIGH);    
@@ -206,49 +154,6 @@ void setup(){
     digitalWrite(ledPin, LOW);    
     request->send(SPIFFS, "/index.html", String(), false, processor);
   });
-
-  /*
-  server.on("/neored", HTTP_GET, [](AsyncWebServerRequest *request){  
-    for(int i = 0; i < LED_COUNT; i++){
-      strip.setPixelColor(i, 64, 0, 0, 0);  
-      //delay(100);
-      strip.show();
-    }   
-    neoState = "Red";
-    request->send(SPIFFS, "/index.html", String(), false, processor);
-  });
-
-  server.on("/neogreen", HTTP_GET, [](AsyncWebServerRequest *request){  
-    for(int i = 0; i < LED_COUNT; i++){
-      strip.setPixelColor(i, 0, 64, 0, 0);  
-      //delay(100);
-      strip.show();
-    }   
-    neoState = "Green";
-    request->send(SPIFFS, "/index.html", String(), false, processor);
-  });
-
-  server.on("/neoblue", HTTP_GET, [](AsyncWebServerRequest *request){  
-    for(int i = 0; i < LED_COUNT; i++){
-      strip.setPixelColor(i, 0, 0, 64, 0);  
-      //delay(100);
-      strip.show();
-    }   
-    neoState = "Blue";
-    request->send(SPIFFS, "/index.html", String(), false, processor);
-  });
-
-  server.on("/neowhite", HTTP_GET, [](AsyncWebServerRequest *request){  
-    for(int i = 0; i < LED_COUNT; i++){
-      strip.setPixelColor(i, 0, 0, 0, 64);  
-      //delay(100);
-      strip.show();
-    }
-    neoState = "White";
-    request->send(SPIFFS, "/index.html", String(), false, processor);
-  });
-
-  */
 
   server.on("/setneocolor", HTTP_GET, [](AsyncWebServerRequest *request) {
       if (request->hasParam("color")) {
@@ -265,7 +170,6 @@ void setup(){
       }
       request->send(SPIFFS, "/index.html", String(), false, processor);
   });
-
 
   server.on("/neooff", HTTP_GET, [](AsyncWebServerRequest *request){  
     for(int i = 0; i < LED_COUNT; i++){
@@ -292,32 +196,10 @@ void setup(){
       request->send(SPIFFS, "/index.html", String(), false, processor);
   });
 
-
-    // Route to increase servo angle by 20 degrees
-  server.on("/servoUp", HTTP_GET, [](AsyncWebServerRequest *request) {
-    currentServoAngle += 20;
-    if(currentServoAngle > maxServoAngle) {
-      currentServoAngle = maxServoAngle;
-    }
-    setServoAngle(currentServoAngle);
-    request->send(SPIFFS, "/index.html", String(), false, processor);
-  });
-
-  // Route to decrease servo angle by 20 degrees
-  server.on("/servoDown", HTTP_GET, [](AsyncWebServerRequest *request) {
-    currentServoAngle -= 20;
-    if(currentServoAngle < 0) {
-      currentServoAngle = 0;
-    }
-    setServoAngle(currentServoAngle);
-    request->send(SPIFFS, "/index.html", String(), false, processor);
-  });
-
-
   // Start server
   server.begin();
 }
- 
+
 void loop(){
   if(relaxMode) {
     unsigned long currentMillis = millis();
