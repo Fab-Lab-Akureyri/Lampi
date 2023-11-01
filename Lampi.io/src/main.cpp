@@ -70,7 +70,7 @@ String processor(const String& var){
 }
 
 // Helper function for Neopixel
-void hexStringToRGB(String hex, uint8_t &r, uint8_t &g, uint8_t &b) {
+void hexStringToRGB(String hex, uint8_t &r, uint8_t &g, uint8_t &b, uint8_t &w) {
     // Remove leading #
     hex.remove(0, 1);
 
@@ -78,7 +78,19 @@ void hexStringToRGB(String hex, uint8_t &r, uint8_t &g, uint8_t &b) {
     r = strtol(hex.substring(0, 2).c_str(), NULL, 16);
     g = strtol(hex.substring(2, 4).c_str(), NULL, 16);
     b = strtol(hex.substring(4, 6).c_str(), NULL, 16);
+    
+    // Check if the color is white or close to white
+    if(r > 200 && g > 200 && b > 200) {
+        // Calculate an average and set it to the white channel
+        w = (r + g + b) / 3;
+        r = 0;
+        g = 0;
+        b = 0;
+    } else {
+        w = 0; // If the color isn't white or near white, set the W channel to 0
+    }
 }
+
  
 void setup(){
   // Serial port for debugging purposes
@@ -161,21 +173,19 @@ void setup(){
   });
 
   server.on("/setneocolor", HTTP_GET, [](AsyncWebServerRequest *request) {
-      if (request->hasParam("color")) {
-          String hexColor = request->getParam("color")->value();
-          uint8_t red, green, blue;
-          hexStringToRGB(hexColor, red, green, blue);
+    if (request->hasParam("color")) {
+        String hexColor = request->getParam("color")->value();
+        uint8_t red, green, blue, white;
+        hexStringToRGB(hexColor, red, green, blue, white);
 
-          float brightnessScale = neoBrightness / 255.0;
+        for(int i = 0; i < LED_COUNT; i++) {
+            strip.setPixelColor(i, red, green, blue, white * neoBrightness / 255);
+            strip.show();
+        }
 
-          for(int i = 0; i < LED_COUNT; i++) {
-              strip.setPixelColor(i, red * brightnessScale, green * brightnessScale, blue * brightnessScale, 0);
-              strip.show();
-          }
-
-          neoState = hexColor;
-      }
-      request->send(SPIFFS, "/index.html", String(), false, processor);
+        neoState = hexColor;
+    }
+    request->send(SPIFFS, "/index.html", String(), false, processor);
   });
 
   server.on("/neooff", HTTP_GET, [](AsyncWebServerRequest *request){  
@@ -219,14 +229,15 @@ void setup(){
             // This is a bit trickier since Relax Mode uses a changing color.
             // For now, I'll leave this logic unchanged, and you can decide what's best.
         } else { // Otherwise, it's displaying a solid color.
-            uint8_t red, green, blue;
-            hexStringToRGB(neoState, red, green, blue);
+            uint8_t red, green, blue, white;
+            hexStringToRGB(neoState, red, green, blue, white);
             
             for(int i = 0; i < LED_COUNT; i++) {
                 strip.setPixelColor(i,
                                     red * brightnessScale, 
                                     green * brightnessScale, 
-                                    blue * brightnessScale, 0);
+                                    blue * brightnessScale, 
+                                    white * brightnessScale);
             }
             strip.show();
         }
