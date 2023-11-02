@@ -172,16 +172,19 @@ void setup(){
 
   server.on("/setneocolor", HTTP_GET, [](AsyncWebServerRequest *request) {
     if (request->hasParam("color")) {
-        String hexColor = request->getParam("color")->value();
-        uint8_t red, green, blue, white;
-        hexStringToRGB(hexColor, red, green, blue, white);
+      relaxMode = false;
+      String hexColor = request->getParam("color")->value();
+      uint8_t red, green, blue, white;
+      hexStringToRGB(hexColor, red, green, blue, white);
 
-        for(int i = 0; i < LED_COUNT; i++) {
-            strip.setPixelColor(i, red, green, blue, white * neoBrightness / 255);
-            strip.show();
-        }
+      float brightnessScale = neoBrightness / 255.0;
 
-        neoState = hexColor;
+      for(int i = 0; i < LED_COUNT; i++) {
+          strip.setPixelColor(i, red * brightnessScale, green * brightnessScale, blue * brightnessScale, white * brightnessScale);
+          strip.show();
+      }
+
+      neoState = hexColor;
     }
     request->send(SPIFFS, "/index.html", String(), false, processor);
   });
