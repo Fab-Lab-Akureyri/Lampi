@@ -1,16 +1,25 @@
 # Lampi
 
-**Verk í vinnslu**
+**Verk í vinnslu hjá Fab Lab Akureyri**
 
-Kaótíkin ræður ríkjum
+## Markmið
+
+Búa til snjalllampa til að nýta til kennslu í Fab Lab. 
+
+## Íhlutir
+
+- ESP32C3
+- Neopixel hringur (12LED, RGBW)
+- Nokkrir vírar
+- 3D prentaður rammi og kúpull
 
 ## Uppsetning
 
 - Setja upp Visual Studio Code
 - Setja up PlatformIO
-   - Hægt að ná í extension í [VScode](https://docs.platformio.org/en/latest/integration/ide/vscode.html)
+   - Viðbót fyrir [VScode](https://docs.platformio.org/en/latest/integration/ide/vscode.html)
 - Opna Lampi.io með [platformIO](https://platformio.org/)   
-- ýtta á `Build` sem býr til ýmsar skrár
+- Ýta á `Build` sem býr til ýmsar skrár
 - Laga línu í `AsyncWebSocket.cpp` [sjá neðar](https://github.com/hanndoddi/Lampi/tree/main#villa-%C3%AD-aspasyncwebserver)
 - Framkvæma þessi skref:
     1. Build filesystem Image
@@ -24,42 +33,36 @@ Kaótíkin ræður ríkjum
 ## TODO: 
 
 - _Útbúa verkefnalýsingu og efni fyrir rafmagns/forritunarnámskeið_
+- Endurskrifa rútur (e. _routes_) með AJAX til að 
+    - Slóð í vafra haldist eins
+    - Nótera endanlega API punkta
 
-## Kröfur, í vinnslu
+## Eiginleikar
 
-Lágmarks kröfur:
-
-- Hreyfanlega hluti
-- Stillanlega hluti
-- 3D prentaða hluti
-- Sérhannaða rafrás
-- Laserskorna hluti
-- Virka án nets - takkar líka
-- SPIFFS?
-  - https://randomnerdtutorials.com/install-esp32-filesystem-uploader-arduino-ide/
-  - https://randomnerdtutorials.com/esp32-vs-code-platformio-spiffs/
-
-Gott að hafa: 
-
-- Nettengingu
-- Vefviðmót
-- Bluetooth?
-- Og góða skapið 😁
+- [x] Vefviðmót
+- [x] Þægilegt hýsisnafn (e. _hostname_)
+- [ ] API
+- [x] Breytilegt birtustig
+- [x] Velja lit
+- [ ] Nokkrar fyrir fram ákveðnar stillingar
+    - [x] Rólegt
+    - [ ] Norðurljós?
+    - ...
 
 ## Myndir
 
-| ![Víraflækja](myndir/tangle.jpg) | 
+| ![Í vinnslu](myndir/tangle.jpg) | 
 |:--:| 
-| *Víraflækja* |
-
-| ![Jón að setja saman](myndir/assembly.jpg) | 
-|:--:| 
-| *Jón að setja saman* |
+| *Í vinnslu* |
 
 | ![Vefviðmót](myndir/screenshot.png) | 
 |:--:| 
 | *Vefviðmót* |
 
+
+| ![Módel](myndir/model.png) | 
+|:--:| 
+| *Módel, í vinnslu* |
 
 ## Nótur
 
