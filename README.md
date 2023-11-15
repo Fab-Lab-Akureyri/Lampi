@@ -12,6 +12,8 @@ Búa til snjalllampa til að nýta til kennslu í Fab Lab.
 - Neopixel hringur (12LED, RGBW)
 - 3 vírar, notaði jumpera og klippti endana af öðru megin
 - 3 pinnar (e. _headers_) til að tengja jumperana. 
+
+
 - 3D prentaðir hlutir:
     - Hólkur
     - Sæti fyrir Neopixel (toppur)
@@ -41,6 +43,10 @@ Búa til snjalllampa til að nýta til kennslu í Fab Lab.
 - Endurskrifa rútur (e. _routes_) með AJAX til að 
     - Slóð í vafra haldist eins
     - Nótera endanlega API punkta
+- Fjarlægja FABXIAO led úr kóða/viðmóti
+- prófa "flottur.lampi" með mdns
+- Fjarlægja .vscode úr sögunni
+- 
 
 ## Eiginleikar
 
@@ -63,6 +69,8 @@ Búa til snjalllampa til að nýta til kennslu í Fab Lab.
 | ![Vefviðmót](myndir/screenshot.png) | 
 |:--:| 
 | *Vefviðmót* |
+
+## 3D Módel (Fusion 360)
 
 | ![Módel](myndir/model.jpg) | 
 |:--:| 
