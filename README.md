@@ -12,6 +12,7 @@ Búa til snjalllampa til að nýta til kennslu í Fab Lab.
 - Neopixel hringur (12LED, RGBW)
 - Nokkrir vírar
 - 3D prentaður rammi og kúpull
+- random íhlutur 
 
 ## Uppsetning
 
