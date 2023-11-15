@@ -18,14 +18,14 @@ Búa til snjalllampa til að nýta til kennslu í Fab Lab.
     - Sæti fyrir ESP32C3 (botn)
     - Spöng til að halda ESP32C3
 
-## Uppsetning
+## Uppsetning (VSCode & PlatformIO)
 
 - Setja upp Visual Studio Code
 - Setja up PlatformIO
    - Viðbót fyrir [VScode](https://docs.platformio.org/en/latest/integration/ide/vscode.html)
-- Opna Lampi.io með [platformIO](https://platformio.org/)   
-- Ýta á `Build` sem býr til ýmsar skrár
+- Opna þetta repo með [platformIO](https://platformio.org/)
 - Laga línu í `AsyncWebSocket.cpp` [sjá neðar](https://github.com/hanndoddi/Lampi/tree/main#villa-%C3%AD-aspasyncwebserver)
+- Ýta á `Build` sem býr til ýmsar skrár
 - Framkvæma þessi skref:
     1. Build filesystem Image
     2. Upload filesystem Image
