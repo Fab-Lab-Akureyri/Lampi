@@ -46,7 +46,11 @@ Búa til snjalllampa til að nýta til kennslu í Fab Lab.
 - Fjarlægja FABXIAO led úr kóða/viðmóti
 - prófa "flottur.lampi" með mdns
 - Fjarlægja .vscode úr sögunni
-- 
+- Gera mismunandi útgáfur af kúplum
+    - [x] Vacuum formaðan
+    - [ ] 3D prentaðan (PLA)
+    - [ ] 3D prentaðan (PVB)
+    - ???
 
 ## Eiginleikar
 
