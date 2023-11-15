@@ -10,9 +10,13 @@ Búa til snjalllampa til að nýta til kennslu í Fab Lab.
 
 - ESP32C3
 - Neopixel hringur (12LED, RGBW)
-- Nokkrir vírar
-- 3D prentaður rammi og kúpull
-- random íhlutur 
+- 3 vírar, notaði jumpera og klippti endana af öðru megin
+- 3 pinnar (e. _headers_) til að tengja jumperana. 
+- 3D prentaðir hlutir:
+    - Hólkur
+    - Sæti fyrir Neopixel (toppur)
+    - Sæti fyrir ESP32C3 (botn)
+    - Spöng til að halda ESP32C3
 
 ## Uppsetning
 
@@ -54,16 +58,57 @@ Búa til snjalllampa til að nýta til kennslu í Fab Lab.
 
 | ![Í vinnslu](myndir/tangle.jpg) | 
 |:--:| 
-| *Í vinnslu* |
+| *Í vinnslu, FABXIAO notaður til prufu* |
 
 | ![Vefviðmót](myndir/screenshot.png) | 
 |:--:| 
 | *Vefviðmót* |
 
-
-| ![Módel](myndir/model.png) | 
+| ![Módel](myndir/model.jpg) | 
 |:--:| 
-| *Módel, í vinnslu* |
+| *Módel* |
+
+| ![Módel þverskurður](myndir/model-skurdur.jpg) | 
+|:--:| 
+| *Módel þverskurður* |
+
+## Samsetning
+
+| ![Vírar](myndir/jumperar.jpg) | 
+|:--:| 
+| *Vírar, jumperar* |
+
+| ![Gegnumtak](myndir/gegnum.jpg) | 
+|:--:| 
+| *Vírar settir í gegn um rétt göt* |
+
+| ![Neopixel lóðaður](myndir/neopixel-lodadur.jpg) | 
+|:--:| 
+| *Neopixel lóðaður* |
+
+| ![Pinnar](myndir/pinnar.jpg) | 
+|:--:| 
+| *Pinnar (e. headers)* |
+
+| ![Pinnar lóðaðir](myndir/pinnar-lodadir.jpg) | 
+|:--:| 
+| *Pinnar lóðaðir, gætið að því láta langa hlutann snúa upp.* |
+
+| ![ESP32C3 á sínum stað](myndir/xiao.jpg) | 
+|:--:| 
+| *ESP32C3 á sínum stað* |
+
+| ![Samsett](myndir/samsett.jpg) | 
+|:--:| 
+| *Samsett* |
+
+| ![USB-tengi](myndir/usb-tengi.jpg) | 
+|:--:| 
+| *Passið að USB-tengið vísi út |
+
+| ![Tilbúið](myndir/tilbuid.jpg) | 
+|:--:| 
+| *Tilbúið, með kúpli* |
 
 ## Nótur
 
