@@ -24,7 +24,7 @@ const int ledPin = D6;
 String ledState;
 
 // Set Neopixel
-#define NEO_PIN D1
+#define NEO_PIN D0
 #define LED_COUNT 12
 int neoBrightness = 64;  // Default value, can be scaled from 0-255
 String neoState = "";
