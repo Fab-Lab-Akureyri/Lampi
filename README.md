@@ -1,6 +1,8 @@
+
+
 # Lampi
 
-**Verk í vinnslu hjá Fab Lab Akureyri**
+**Verk í vinnslu hjá Fab Lab Akureyri ertu viss um að þetta sé í vinslu**
 
 ## Markmið
 
