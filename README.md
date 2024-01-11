@@ -46,13 +46,14 @@ Búa til snjalllampa til að nýta til kennslu í Fab Lab.
     - Slóð í vafra haldist eins
     - Nótera endanlega API punkta
 - Fjarlægja FABXIAO led úr kóða/viðmóti
-- prófa "flottur.lampi" með mdns
+- Prófa "flottur.lampi" með mdns
 - Fjarlægja .vscode úr sögunni
 - Gera mismunandi útgáfur af kúplum
     - [x] Vacuum formaðan
     - [ ] 3D prentaðan (PLA)
     - [ ] 3D prentaðan (PVB)
     - ???
+- Bæta við WifiManager, t.d. [þessum](https://randomnerdtutorials.com/esp32-wi-fi-manager-asyncwebserver/)
 
 ## Eiginleikar
 
