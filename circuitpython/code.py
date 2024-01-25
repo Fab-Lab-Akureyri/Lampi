@@ -9,11 +9,7 @@ ch = 0.3333
 pixel_ring_pin = board.D8
 pixel_ring_num = 12
 
-pixel_builtin       = board.NEOPIXEL #The neopixel can be accessed in this way
-pixel_builtin_num   = 1 #only one pixel
-
-pixel_builtin = neopixel.NeoPixel(pixel_builtin, pixel_builtin_num, brightness=0.05, auto_write=False)
-pixel_ring = neopixel.NeoPixel(pixel_ring_pin, pixel_ring_num, brightness=0.1, auto_write=False, pixel_order=(1, 0, 2, 3))
+pixel_ring = neopixel.NeoPixel(pixel_ring_pin, pixel_ring_num, brightness=br, auto_write=False, pixel_order=(1, 0, 2, 3))
 
 btn1 = DigitalInOut(board.D1)
 btn1.direction = Direction.INPUT
@@ -26,9 +22,10 @@ btn2.pull = Pull.UP
 def color_chase(color, wait):
     for i in range(pixel_ring_num):
         pixel_ring[i] = color
-        time.sleep(wait)
+        #time.sleep(wait)
         pixel_ring.show()
-    time.sleep(0)
+        
+    #time.sleep(0)
 
 def colorwheel(pos):
     if pos < 0 or pos > 255:
@@ -47,6 +44,7 @@ def rainbow_cycle(wait):
             rc_index = (i * 256 // pixel_ring_num) + j
             pixel_ring[i] = colorwheel(rc_index & 255)
         pixel_ring.show()
+        
         time.sleep(wait)
 
 mode_prev_state = btn1.value
@@ -83,7 +81,6 @@ while True:
     elif currentMode == 3:  # Blue
         color_chase(modes[currentMode][1], 0)
     
-
     # Handle brightness changes
     brgh_cur_state = btn2.value
     
