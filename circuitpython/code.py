@@ -22,8 +22,8 @@ mode_prev_state = btn1.value
 brgh_prev_state = btn2.value
 nrOfModes = 4
 currentMode = 0
-br = 0.2
-ch = 0.2
+brightness = 0.2
+br_step = 0.2
 
 rainbow_task = None  # Task to manage the rainbow cycle
 
@@ -115,6 +115,7 @@ async def handle_btn1_press():
     
     # Handle the OFF mode separately
     if currentMode == 0:  # OFF mode
+        await asyncio.sleep(0.05)
         pixel_ring.fill((0, 0, 0, 0))
         pixel_ring.show()
         if rainbow_task and not rainbow_task.done():
@@ -132,14 +133,14 @@ async def handle_btn1_press():
             rainbow_task = None
         # Start the color chase for the respective color
         color = modes[currentMode][1]
-        asyncio.create_task(color_chase_a(color, 0, 0.04))
+        asyncio.create_task(color_chase_a(color, 0, 0.01))
 
 async def handle_btn2_press():
-    global br, ch
-    br += ch
-    if br >= 1:
-        br = 0.3333
-    pixel_ring.brightness = br
+    global brightness, br_step
+    brightness += br_step
+    if brightness >= 1:
+        brightness = 0.3333
+    pixel_ring.brightness = brightness
     pixel_ring.show()
 
 # Main function
