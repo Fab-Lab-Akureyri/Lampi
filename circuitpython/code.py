@@ -22,8 +22,8 @@ mode_prev_state = btn1.value
 brgh_prev_state = btn2.value
 nrOfModes = 4
 currentMode = 0
-br = 0.3333
-ch = 0.3333
+br = 0.2
+ch = 0.2
 
 rainbow_task = None  # Task to manage the rainbow cycle
 
@@ -44,18 +44,36 @@ modes = {
     1: ["Rainbow"],                 # Rainbow mode
     2: ["RED", (255, 0, 0, 0)],     # RED
     3: ["GREEN", (0, 255, 0, 0)],   # GREEN
-    4: ["BLUE", (0, 0, 255, 0)]     # BLUE
+    4: ["BLUE", (0, 0, 255, 0)],    # BLUE
+    4: ["WHITE", (0, 0, 0, 255)]    # BLUE
 }
 
-# Power-on color sweep
-async def power_on_sweep(pixel, pixel_number):
-    for j in range(255):
+# Power-on white brightness sweep
+async def power_on_sweep(pixel, pixel_number, duration=2):
+    max_brightness = 0.5  # 50% brightness
+    total_steps = 50  # Number of steps in the transition
+    step_duration = duration / (total_steps * 2)  # Time per step, for both up and down
+
+    # Increase brightness from 0% to 50%
+    for step in range(total_steps):
+        brightness = (step / total_steps) * max_brightness
+        white_value = int(255 * brightness)
         for i in range(pixel_number):
-            rc_index = (i * 256 // pixel_number) + j
-            pixel[i] = colorwheel(rc_index & 255)
+            pixel[i] = (0, 0, 0, white_value)  # Set to white with calculated brightness
         pixel.show()
-        await asyncio.sleep(0.01)  # Adjust speed as needed
-    for i in range(pixel_number):  # Turn off all pixels after the sweep
+        await asyncio.sleep(step_duration)
+
+    # Decrease brightness from 50% to 0%
+    for step in range(total_steps, -1, -1):
+        brightness = (step / total_steps) * max_brightness
+        white_value = int(255 * brightness)
+        for i in range(pixel_number):
+            pixel[i] = (0, 0, 0, white_value)  # Set to white with calculated brightness
+        pixel.show()
+        await asyncio.sleep(step_duration)
+
+    # Ensure all LEDs are turned off at the end
+    for i in range(pixel_number):
         pixel[i] = (0, 0, 0, 0)
     pixel.show()
 
@@ -114,7 +132,7 @@ async def handle_btn1_press():
             rainbow_task = None
         # Start the color chase for the respective color
         color = modes[currentMode][1]
-        asyncio.create_task(color_chase_a(color, 0, 0.01))
+        asyncio.create_task(color_chase_a(color, 0, 0.04))
 
 async def handle_btn2_press():
     global br, ch
@@ -128,7 +146,7 @@ async def handle_btn2_press():
 async def main():
     # Start with a power-on color sweep
     await power_on_sweep(pixel_ring, pixel_ring_num)
-    
+
     btn1_monitor = asyncio.create_task(monitor_button(btn1, handle_btn1_press))
     btn2_monitor = asyncio.create_task(monitor_button(btn2, handle_btn2_press))
     
