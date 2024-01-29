@@ -20,8 +20,8 @@ btn2.pull = Pull.UP
 # State variables
 mode_prev_state = btn1.value
 brgh_prev_state = btn2.value
-nrOfModes = 4
-currentMode = 0
+
+
 brightness = 0.2
 br_step = 0.2
 
@@ -38,6 +38,9 @@ def colorwheel(pos):
     pos -= 170
     return (pos * 3, 0, 255 - pos * 3, 0)
 
+nrOfModes = 4
+currentMode = 0
+
 # Mode definitions with "OFF" mode added
 modes = {
     0: ["OFF"],                     # OFF mode
@@ -50,6 +53,7 @@ modes = {
 
 # Power-on white brightness sweep
 async def power_on_sweep(pixel, pixel_number, duration=2):
+    print("Running power on sweep")
     max_brightness = 0.5  # 50% brightness
     total_steps = 50  # Number of steps in the transition
     step_duration = duration / (total_steps * 2)  # Time per step, for both up and down
@@ -137,11 +141,13 @@ async def handle_btn1_press():
 
 async def handle_btn2_press():
     global brightness, br_step
+    print(f"Brightness was: {brightness}", end="")
     brightness += br_step
     if brightness >= 1:
-        brightness = 0.3333
+        brightness = br_step
     pixel_ring.brightness = brightness
     pixel_ring.show()
+    print(f", is now: {brightness}")
 
 # Main function
 async def main():
