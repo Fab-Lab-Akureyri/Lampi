@@ -443,10 +443,10 @@
   "pcbnew": {
     "last_paths": {
       "gencad": "",
-      "idf": "",
+      "idf": "fla-lampi.emn",
       "netlist": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "fla-lampi.step",
       "vrml": ""
     },
     "page_layout_descr_file": ""
