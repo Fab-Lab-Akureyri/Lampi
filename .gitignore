@@ -4,3 +4,5 @@
 .vscode/launch.json
 .vscode/ipch
 src/config.h
+fla-lampi/fla-lampi-backups/*
+fla-lampi/*.lck
