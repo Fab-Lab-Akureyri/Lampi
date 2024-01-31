@@ -4,7 +4,7 @@ import board
 from digitalio import DigitalInOut, Direction, Pull
 
 # LED setup
-pixel_ring_pin = board.D8
+pixel_ring_pin = board.D6
 pixel_ring_num = 12
 pixel_ring = neopixel.NeoPixel(pixel_ring_pin, pixel_ring_num, brightness=0.3333, auto_write=False, pixel_order=(1, 0, 2, 3))
 
