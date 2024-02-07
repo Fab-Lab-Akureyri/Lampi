@@ -38,7 +38,7 @@ def colorwheel(pos):
     pos -= 170
     return (pos * 3, 0, 255 - pos * 3, 0)
 
-nrOfModes = 4
+nrOfModes = 5
 currentMode = 0
 
 # Mode definitions with "OFF" mode added
@@ -48,7 +48,7 @@ modes = {
     2: ["RED", (255, 0, 0, 0)],     # RED
     3: ["GREEN", (0, 255, 0, 0)],   # GREEN
     4: ["BLUE", (0, 0, 255, 0)],    # BLUE
-    4: ["WHITE", (0, 0, 0, 255)]    # BLUE
+    5: ["WHITE", (0, 0, 0, 255)]    # BLUE
 }
 
 # Power-on white brightness sweep
