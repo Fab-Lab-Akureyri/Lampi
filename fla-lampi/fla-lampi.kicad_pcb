@@ -1326,7 +1326,7 @@
 		(at 187.15 126.1 180)
 		(descr "Resistor SMD 1206, hand soldering")
 		(tags "resistor 1206")
-		(property "Reference" "R449"
+		(property "Reference" "R499"
 			(at 0 -1.85 0)
 			(layer "F.SilkS")
 			(uuid "6b03c44a-1452-4cb5-969a-ea070b2eb7bf")
