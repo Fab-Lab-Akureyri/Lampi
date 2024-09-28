@@ -20,16 +20,14 @@ Búa til lítinn og skrítinn lampa sem kennsluefni í Fab Lab.
 
 ## Rafmagnsteikningar
 
-**TODO**
+![Schematic](/myndir/schematic.png)
+
+![PCB](/myndir/pcb.png)
 
 ## Þrívíddarmódel 
 
-**TODO**
+- [Skel](/model/Skel.stl)
 
-### Skel
+- [Botn](/model/Botn.stl)
 
-### Botn
-
-### Skermur
-
-##
+- [Skermur](/model/Skermur.stl)
