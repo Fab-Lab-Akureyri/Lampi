@@ -1,27 +1,13 @@
 # Lampi
 
-**Verk í vinnslu hjá Fab Lab Akureyri**
+**Hætt við þetta, RP2040 notaður. Sjá `main` branch.**
+
+Þetta er fyrri ítrun, þar sem notast var við Seeed Xiao ESP32C3.
+
 
 ## Markmið
 
 Búa til snjalllampa til að nýta til kennslu í Fab Lab. 
-
-# Uppfærsla!
-
-Ákveðið að nota Xiao RP2040 og [Circuitpython]() í stað ESP32C3. 
-
-## Íhlutir
-- [Seeed Xiao RP2040](https://www.seeedstudio.com/XIAO-RP2040-v1-0-p-5026.html)
-- [Neopixel hringur (12LED, RGBW)](https://www.adafruit.com/product/2852) 
-- 2 [takkar](https://www.digikey.com/en/products/detail/omron-electronics-inc-emc-div/B3SN-3112P/27856)
-- PCB bretti
-
-## Uppsetning
-- Sækja [Circuitpython](https://circuitpython.org/board/seeeduino_xiao_rp2040/) firmware, 8. útgáfu - (einnig hér í repo-inu). 
-- Setja upp á brettinu, [sjá leiðbeiningar hér](https://wiki.seeedstudio.com/XIAO-RP2040-with-CircuitPython/)
-- Setja `code.py` í rótina á drifinu/brettinu. 
-- Setja `lib` möppuna á rótina á drifinu/brettinu.
-
 
 ## Samsetning
 
@@ -31,15 +17,12 @@ TODO:
 - Lóðningar
 - Samsetning á PCB & prentuðum hlutum. 
 
-# Hér fyrir neðan eru eldri upplýsingar
-
 ## Íhlutir
 
 - ESP32C3
 - Neopixel hringur (12LED, RGBW)
 - 3 vírar, notaði jumpera og klippti endana af öðru megin
 - 3 pinnar (e. _headers_) til að tengja jumperana. 
-
 
 - 3D prentaðir hlutir:
     - Hólkur
