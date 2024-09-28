@@ -31,3 +31,7 @@ Búa til lítinn og skrítinn lampa sem kennsluefni í Fab Lab.
 - [Botn](/model/Botn.stl)
 
 - [Skermur](/model/Skermur.stl)
+
+## Brettið
+
+![Brettið](/myndir/soldered.jpg)
