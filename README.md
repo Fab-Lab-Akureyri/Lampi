@@ -1,175 +1,35 @@
 # Lampi
 
-**Verk í vinnslu hjá Fab Lab Akureyri**
-
 ## Markmið
 
-Búa til snjalllampa til að nýta til kennslu í Fab Lab. 
-
-# Uppfærsla!
-
-Ákveðið að nota Xiao RP2040 og [Circuitpython]() í stað ESP32C3. 
+Búa til lítinn og skrítinn lampa sem kennsluefni í Fab Lab. 
 
 ## Íhlutir
 - [Seeed Xiao RP2040](https://www.seeedstudio.com/XIAO-RP2040-v1-0-p-5026.html)
 - [Neopixel hringur (12LED, RGBW)](https://www.adafruit.com/product/2852) 
 - 2 [takkar](https://www.digikey.com/en/products/detail/omron-electronics-inc-emc-div/B3SN-3112P/27856)
+- 2 [499Ω smd viðnám](https://www.digikey.com/en/products/detail/yageo/RC1206FR-07499RL/728944)
 - PCB bretti
+- 2.9mm x ___ skrúfa
 
 ## Uppsetning
 - Sækja [Circuitpython](https://circuitpython.org/board/seeeduino_xiao_rp2040/) firmware, 8. útgáfu - (einnig hér í repo-inu). 
-- Setja upp á brettinu, [sjá leiðbeiningar hér](https://wiki.seeedstudio.com/XIAO-RP2040-with-CircuitPython/)
-- Setja `code.py` í rótina á drifinu/brettinu. 
-- Setja `lib` möppuna á rótina á drifinu/brettinu.
+- Setja Circuitpython upp á RP2040, [sjá leiðbeiningar](https://wiki.seeedstudio.com/XIAO-RP2040-with-CircuitPython/)
+- Setja `code.py` í rótina á RP2040. 
+- Setja `lib` möppuna á rótina á RP2040.
 
+## Rafmagnsteikningar
 
-## Samsetning
+**TODO**
 
-TODO: 
-- Uppfæra bretti
-- Mynd af tengingum
-- Lóðningar
-- Samsetning á PCB & prentuðum hlutum. 
+## Þrívíddarmódel 
 
-# Hér fyrir neðan eru eldri upplýsingar
+**TODO**
 
-## Íhlutir
+### Skel
 
-- ESP32C3
-- Neopixel hringur (12LED, RGBW)
-- 3 vírar, notaði jumpera og klippti endana af öðru megin
-- 3 pinnar (e. _headers_) til að tengja jumperana. 
+### Botn
 
+### Skermur
 
-- 3D prentaðir hlutir:
-    - Hólkur
-    - Sæti fyrir Neopixel (toppur)
-    - Sæti fyrir ESP32C3 (botn)
-    - Spöng til að halda ESP32C3
-
-## Uppsetning (VSCode & PlatformIO)
-
-- Setja upp Visual Studio Code
-- Setja up PlatformIO
-   - Viðbót fyrir [VScode](https://docs.platformio.org/en/latest/integration/ide/vscode.html)
-- Opna þetta repo með [platformIO](https://platformio.org/)
-- Laga línu í `AsyncWebSocket.cpp` [sjá neðar](https://github.com/hanndoddi/Lampi/tree/main#villa-%C3%AD-aspasyncwebserver)
-- Ýta á `Build` sem býr til ýmsar skrár
-- Framkvæma þessi skref:
-    1. Build filesystem Image
-    2. Upload filesystem Image
-    3. Upload and monitor
-
-| ![Skref](myndir/skref.jpg) | 
-|:--:| 
-| *Skref* |
-
-## TODO: 
-
-- _Útbúa verkefnalýsingu og efni fyrir rafmagns/forritunarnámskeið_
-- Endurskrifa rútur (e. _routes_) með AJAX til að 
-    - Slóð í vafra haldist eins
-    - Nótera endanlega API punkta
-- Fjarlægja FABXIAO led úr kóða/viðmóti
-- Prófa "flottur.lampi" með mdns
-- Fjarlægja .vscode úr sögunni
-- Gera mismunandi útgáfur af kúplum
-    - [x] Vacuum formaðan
-    - [ ] 3D prentaðan (PLA)
-    - [ ] 3D prentaðan (PVB)
-    - ???
-- Bæta við WifiManager, t.d. [þessum](https://randomnerdtutorials.com/esp32-wi-fi-manager-asyncwebserver/)
-
-## Eiginleikar
-
-- [x] Vefviðmót
-- [x] Þægilegt hýsisnafn (e. _hostname_)
-- [ ] API
-- [x] Breytilegt birtustig
-- [x] Velja lit
-- [ ] Nokkrar fyrir fram ákveðnar stillingar
-    - [x] Rólegt
-    - [ ] Norðurljós?
-    - ...
-
-## Myndir
-
-| ![Í vinnslu](myndir/tangle.jpg) | 
-|:--:| 
-| *Í vinnslu, FABXIAO notaður til prufu* |
-
-| ![Vefviðmót](myndir/screenshot.png) | 
-|:--:| 
-| *Vefviðmót* |
-
-## 3D Módel (Fusion 360)
-
-| ![Módel](myndir/model.jpg) | 
-|:--:| 
-| *Módel* |
-
-| ![Módel þverskurður](myndir/model-skurdur.jpg) | 
-|:--:| 
-| *Módel þverskurður* |
-
-## Samsetning
-
-| ![Vírar](myndir/jumperar.jpg) | 
-|:--:| 
-| *Vírar, jumperar* |
-
-| ![Gegnumtak](myndir/gegnum.jpg) | 
-|:--:| 
-| *Vírar settir í gegn um rétt göt* |
-
-| ![Neopixel lóðaður](myndir/neopixel-lodadur.jpg) | 
-|:--:| 
-| *Neopixel lóðaður* |
-
-| ![Pinnar](myndir/pinnar.jpg) | 
-|:--:| 
-| *Pinnar (e. headers)* |
-
-| ![Pinnar lóðaðir](myndir/pinnar-lodadir.jpg) | 
-|:--:| 
-| *Pinnar lóðaðir, gætið að því láta langa hlutann snúa upp.* |
-
-| ![ESP32C3 á sínum stað](myndir/xiao.jpg) | 
-|:--:| 
-| *ESP32C3 á sínum stað* |
-
-| ![Samsett](myndir/samsett.jpg) | 
-|:--:| 
-| *Samsett* |
-
-| ![USB-tengi](myndir/usb-tengi.jpg) | 
-|:--:| 
-| *Passið að USB-tengið vísi út |
-
-| ![Tilbúið](myndir/tilbuid.jpg) | 
-|:--:| 
-| *Tilbúið, með kúpli* |
-
-## Nótur
-
-### Villa í ASPAsyncWebServer 
-
-Sjá: https://github.com/me-no-dev/ESPAsyncWebServer/pull/1142
-
-í `AsyncWebSocket.cpp` þarf að breyta eftirfarandi:
-
-    IPAddress AsyncWebSocketClient::remoteIP() {
-        if(!_client) {
-            return IPAddress(0U);
-        }
-        return _client->remoteIP();
-    }
-
-svona: 
-
-    IPAddress AsyncWebSocketClient::remoteIP() {
-        if(!_client) {
-            return IPAddress();
-        }
-        return _client->remoteIP();
-    }
+##
