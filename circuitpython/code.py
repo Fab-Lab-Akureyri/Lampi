@@ -6,7 +6,7 @@ from digitalio import DigitalInOut, Direction, Pull
 # LED setup
 pixel_ring_pin = board.D6
 pixel_ring_num = 12
-pixel_ring = neopixel.NeoPixel(pixel_ring_pin, pixel_ring_num, brightness=0.3333, auto_write=False, pixel_order=(1, 0, 2, 3))
+pixel_ring = neopixel.NeoPixel(pixel_ring_pin, pixel_ring_num, brightness=0.3, auto_write=False, pixel_order=(1, 0, 2, 3))
 
 # Button setup
 btn1 = DigitalInOut(board.D1)
@@ -17,8 +17,10 @@ btn2 = DigitalInOut(board.D3)
 btn2.direction = Direction.INPUT
 btn2.pull = Pull.UP
 
-brightness = 0.2
-br_step = 0.2
+# Brightness levels configuration
+brightness_levels = [0.3, 0.6, 0.99]  # Desired brightness steps
+current_brightness_index = 0  # Start at the first brightness level
+breathing_task = None  # To manage breathing mode task
 
 rainbow_task = None  # Task to manage the rainbow cycle
 
@@ -95,45 +97,101 @@ async def monitor_button(btn, handler):
                 await handler()
         await asyncio.sleep(0.01)
 
+# Continuous breathing mode effect
+async def breathing_mode():
+    global brightness_levels, current_brightness_index
+    print("Entering continuous breathing mode...")
+
+    # Define breathing parameters
+    breath_steps = 50  # Number of steps for each breath in and out
+    max_brightness = 0.99  # Maximum brightness for breathing effect
+    min_brightness = 0.3  # Minimum brightness for breathing effect
+    duration = 2.0  # Total time for one breath cycle
+
+    while True:
+        # Increase brightness (inhale)
+        for step in range(breath_steps):
+            brightness = min_brightness + ((max_brightness - min_brightness) * step / breath_steps)
+            pixel_ring.brightness = brightness
+            pixel_ring.show()
+            await asyncio.sleep(duration / (2 * breath_steps))
+
+        # Decrease brightness (exhale)
+        for step in range(breath_steps, -1, -1):
+            brightness = min_brightness + ((max_brightness - min_brightness) * step / breath_steps)
+            pixel_ring.brightness = brightness
+            pixel_ring.show()
+            await asyncio.sleep(duration / (2 * breath_steps))
+
 # Handlers for button press events
 async def handle_btn1_press():
-    global currentMode, rainbow_task, modes
+    global currentMode, rainbow_task, modes, breathing_task
+
+    # Switch to the next mode
     currentMode += 1
     if currentMode >= len(modes):
         currentMode = 0
 
-    print(f"Switching to mode: {modes[currentMode][0]}")  # Logging the mode change
-    
+    print(f"Switching to mode: {modes[currentMode][0]}")
+
+    # Stop rainbow task if it's running
+    if rainbow_task and not rainbow_task.done():
+        rainbow_task.cancel()
+        rainbow_task = None
+
+    # Stop breathing task if switching to OFF mode
     if currentMode == 0:  # OFF mode
+        if breathing_task and not breathing_task.done():
+            breathing_task.cancel()
+            breathing_task = None
         pixel_ring.fill((0, 0, 0, 0))
         pixel_ring.show()
-        if rainbow_task and not rainbow_task.done():
-            rainbow_task.cancel()
-            rainbow_task = None
-        return
+        return  # Exit function early for OFF mode
 
-    if currentMode == 1:  # Rainbow mode
-        if rainbow_task is None or rainbow_task.done():
+    # If breathing mode is active, keep it running for the new mode
+    if breathing_task and not breathing_task.done():
+        # Update the mode but continue breathing
+        if currentMode == 1:  # Rainbow mode
             rainbow_task = asyncio.create_task(rainbow_cycle_a(pixel_ring, pixel_ring_num, 0.01))
+        else:
+            color = modes[currentMode][1]
+            asyncio.create_task(color_chase_a(color, 0.01))
     else:
-        if rainbow_task and not rainbow_task.done():
-            rainbow_task.cancel()
-            rainbow_task = None
-        color = modes[currentMode][1]
-        asyncio.create_task(color_chase_a(color, 0.01))
+        # Start the color chase or rainbow cycle without breathing if it's not active
+        if currentMode == 1:
+            rainbow_task = asyncio.create_task(rainbow_cycle_a(pixel_ring, pixel_ring_num, 0.01))
+        else:
+            color = modes[currentMode][1]
+            asyncio.create_task(color_chase_a(color, 0.01))
 
 async def handle_btn2_press():
-    global brightness, br_step
-    print(f"Brightness was: {brightness}", end="")
-    brightness += br_step
-    if brightness >= 1:
-        brightness = br_step
-    pixel_ring.brightness = brightness
+    global current_brightness_index, brightness_levels, breathing_task
+
+    # If breathing mode is active, cancel it before changing brightness
+    if breathing_task and not breathing_task.done():
+        breathing_task.cancel()
+        breathing_task = None
+        # Reset brightness to the initial level after breathing mode ends
+        current_brightness_index = 0  # Reset to 0.3 after breathing
+    else:
+        # Cycle through brightness levels
+        if current_brightness_index < len(brightness_levels) - 1:
+            # Move to the next brightness level
+            current_brightness_index += 1
+        else:
+            # Enter breathing mode if at max brightness level
+            breathing_task = asyncio.create_task(breathing_mode())
+            return  # Exit to let breathing mode take over
+
+    # Explicitly set brightness to ensure it starts at 0.3 after breathing mode
+    pixel_ring.brightness = brightness_levels[current_brightness_index]
     pixel_ring.show()
-    print(f", is now: {brightness}")
+    print(f"Brightness is now: {pixel_ring.brightness}")
 
 # Main function
 async def main():
+    # Explicitly set initial brightness to 0.3 on startup
+    pixel_ring.brightness = brightness_levels[0]
     await power_on_sweep(pixel_ring, pixel_ring_num)
 
     btn1_monitor = asyncio.create_task(monitor_button(btn1, handle_btn1_press))
