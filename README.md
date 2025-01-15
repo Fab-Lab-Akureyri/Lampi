@@ -13,7 +13,7 @@ Búa til lítinn og skrítinn lampa sem kennsluefni í Fab Lab.
 - 2.9mm x ___ skrúfa
 
 ## Uppsetning
-- Sækja [Circuitpython](https://circuitpython.org/board/seeeduino_xiao_rp2040/) firmware, 8. útgáfu - (einnig hér í repo-inu). 
+- Sækja [Circuitpython](https://circuitpython.org/board/seeeduino_xiao_rp2040/) firmware, 9. útgáfu - (einnig hér í repo-inu). 
 - Setja Circuitpython upp á RP2040, [sjá leiðbeiningar](https://wiki.seeedstudio.com/XIAO-RP2040-with-CircuitPython/)
 - Setja `code.py` í rótina á RP2040. 
 - Setja `lib` möppuna á rótina á RP2040.
